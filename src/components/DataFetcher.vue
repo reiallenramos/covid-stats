@@ -50,7 +50,7 @@
     data() {
       return {
         users: null,
-        country: 'Canada',
+        country: '',
         isLoading: true
       }
     },
