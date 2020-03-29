@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <table class="table">
+    <CountrySelector v-on:handle-change-country='changeCountry'/>
+    <div v-if="isLoading" class='spinner-border' role='status'><span class='sr-only'>Loading Data...</span></div>
+    <table v-else class="table">
       <thead>
         <tr>
           <th scope="col">Country</th>
@@ -37,6 +39,7 @@
 
 <script>
   import axios from 'axios';
+  import CountrySelector from './CountrySelector.vue';
 
   axios.defaults.baseURL = 'https://covid-19-coronavirus-statistics.p.rapidapi.com';
   axios.defaults.headers.common['x-rapidapi-host'] = 'covid-19-coronavirus-statistics.p.rapidapi.com';
@@ -47,14 +50,34 @@
     data() {
       return {
         users: null,
+        country: 'Canada',
+        isLoading: true
+      }
+    },
+    watch: {
+      country: function() {
+        this.isLoading = true;
+        this.fetchData();
       }
     },
     created: function() {
-      axios
-        .get('/v1/stats?country=Canada')
-        .then(res => {
-          this.users = res.data.data.covid19Stats;
-        })
+      this.fetchData();
+    },
+    components: {
+      CountrySelector
+    },
+    methods: {
+      changeCountry: function(country) {
+        this.country = country;
+      },
+      fetchData: function() {
+        axios
+          .get(`/v1/stats?country=${this.country}`)
+          .then(res => {
+            this.users = res.data.data.covid19Stats;
+            this.isLoading = false;
+          })
+      }
     }
   }
 </script>
