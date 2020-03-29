@@ -1,12 +1,12 @@
 <template>
   <div class="dropdown">
-    <button v-if="selected" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button v-if="selected != null" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       {{ selected }}
     </button>
     <button v-else class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Select a Country
     </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <div class="dropdown-menu country-selector-offset" aria-labelledby="dropdownMenuButton">
       <a v-for="country in countries" :key="country.value" class="dropdown-item" v-on:click="changeCountry(country.value)">
         {{ country.value }}
       </a>
@@ -16,11 +16,12 @@
 
 <script>
 export default {
-  name: 'button',
+  name: 'CountrySelector',
   data() {
     return {
       selected: null,
       countries: [
+        { "value":"All countries" },
         { "value":"Afghanistan" },
         { "value":"Albania" },
         { "value":"Algeria" },
@@ -202,3 +203,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.country-selector-offset {
+  top: 48px!important;
+}
+
+.dropdown-menu {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+</style>

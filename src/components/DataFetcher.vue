@@ -1,48 +1,50 @@
 <template>
   <div class="row">
-    <template v-if="isLoading">
-      <LoadingSplash />
-    </template>
-    <template v-else>
-      <div class="col-md-8">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Country</th>
-              <th scope="col">City</th>
-              <th scope="col">Province</th>
-              <th scope="col">Confirmed Cases</th>
-              <th scope="col">Deaths</th>
-              <th scope="col">Recovered</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="record in records" v-bind:key="record.keyId">
-              <th scope="row">{{record.country}}</th>
-              <th v-if="record.city" scope="row">
-                {{record.country}}
-              </th>
-              <th v-else scope="row">
-                -
-              </th>
-              <th v-if="record.province" scope="row">
-                {{record.province}}
-              </th>
-              <th v-else scope="row">
-                -
-              </th>
-              <td>{{record.confirmed}}</td>
-              <td>{{record.deaths}}</td>
-              <td>{{record.recovered}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-md-4">
-        <CountrySelector v-on:handle-change-country='changeCountry'/>
-        <Chart v-if="!isLoading" :chartdata="chartdata"/>
-      </div>
-    </template>
+    <div class="col-md-8">
+      <template v-if="isLoading">
+        <LoadingSplash />
+      </template>
+      <template v-else>
+        <div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Country</th>
+                <th scope="col">City</th>
+                <th scope="col">Province</th>
+                <th scope="col">Confirmed Cases</th>
+                <th scope="col">Deaths</th>
+                <th scope="col">Recovered</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="record in records" v-bind:key="record.keyId">
+                <th scope="row">{{record.country}}</th>
+                <th v-if="record.city" scope="row">
+                  {{record.country}}
+                </th>
+                <th v-else scope="row">
+                  -
+                </th>
+                <th v-if="record.province" scope="row">
+                  {{record.province}}
+                </th>
+                <th v-else scope="row">
+                  -
+                </th>
+                <td>{{record.confirmed}}</td>
+                <td>{{record.deaths}}</td>
+                <td>{{record.recovered}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </template>
+    </div>
+    <div class="col-md-4">
+      <CountrySelector v-on:handle-change-country='changeCountry'/>
+      <Chart v-if="!isLoading" :chartdata="chartdata"/>
+    </div>
   </div>
 </template>
 
@@ -68,7 +70,7 @@
           datasets: [
             {
               label: '',
-              backgroundColor: ['#a23131', '#a1dd70'],
+              backgroundColor: ['#f68787', '#a4f6a5'],
               data: [0, 0]
             }
           ]
