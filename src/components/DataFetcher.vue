@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <CountrySelector v-on:handle-change-country='changeCountry'/>
     <div v-if="isLoading" class='spinner-border' role='status'><span class='sr-only'>Loading Data...</span></div>
     <table v-else class="table">
