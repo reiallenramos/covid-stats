@@ -1,7 +1,9 @@
 <template>
   <div>
     <CountrySelector v-on:handle-change-country='changeCountry'/>
-    <div v-if="isLoading" class='spinner-border' role='status'><span class='sr-only'>Loading Data...</span></div>
+    <div v-if="isLoading">
+      <LoadingSplash />
+    </div>
     <table v-else class="table">
       <thead>
         <tr>
@@ -39,6 +41,7 @@
 
 <script>
   import axios from 'axios';
+  import LoadingSplash from './LoadingSplash.vue'
   import CountrySelector from './CountrySelector.vue';
 
   axios.defaults.baseURL = 'https://covid-19-coronavirus-statistics.p.rapidapi.com';
@@ -64,7 +67,8 @@
       this.fetchData();
     },
     components: {
-      CountrySelector
+      CountrySelector,
+      LoadingSplash
     },
     methods: {
       changeCountry: function(country) {
